@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define fastread  ios_base::sync_with_stdio(false),cin.tie(NULL)
+#define pb push_back
+#define ha cout<<"YES\n"
+#define na cout<<"NO\n"
+#define endl "\n"
+#define co(x) cout<<x<<'\n'
+#define f(n) for(int i=0;i<n;i++)
+#define srt(v) sort(v.begin(),v.end())
+#define mod 1000000007
+#define INF 1e18
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+typedef pair<int, int> pii;
+tree<pii, null_type, less<pii>, rb_tree_tag, tree_order_statistics_node_update> T;
+ll bigmod(ll x, ll y, ll p)
+{
+    ll res = 1;
+    x = x % p;
+    if (x == 0)return 0;
+    while (y > 0)
+    {
+        if (y & 1)
+            res = (res * x) % p;
+        y = y >> 1;
+        x = (x * x) % p;
+    }
+    return res;
+}
+struct fun
+{
+    ll u, cst, chk;
+    bool operator <(const fun &it)const
+    {
+        return cst > it.cst;
+    }
+};
+ll power(ll a, ll b)
+{
+    ll c = 1;
+    while (b--)c *= a;
+    return c;
+}
+ 
+int fx[] = { +0, +0, +1, -1, -1, +1, -1, +1};
+int fy[] = { -1, +1, +0, +0, +1, +1, -1, -1};
+ll n;
+void testcase()
+{
+    cin >> n;
+    ll ans = 0;
+    ll len = 0;
+    for (ll i = 1; i <= 17; i++)
+    {
+        ll d = power(10, i) - ans - 1;
+        ll e = len + d * i;
+        if (e >= n)
+        {
+            ll rem = 0;
+            ll low = power(10, i - 1);
+            ll hi  = power(10, i) - 1;
+            ll dd = low - 1;
+            ll last = dd;
+            rem = n - len;
+            while (low <= hi)
+            {
+                ll mid = (low + hi) / 2;
+                ll fnd = mid - dd;
+                ll total = len + fnd * i;
+                if (total > n)
+                {
+                    hi = mid - 1;
+                }
+                else
+                {
+                    last  = mid;
+                    rem = n - total;
+                    low = mid + 1;
+                }
+            }
+ 
+            if (rem)
+            {
+                string str;
+                last++;
+                ///  cout << last << ' ' << rem << '\n';
+                while (last > 0)
+                {
+                    str.push_back(last % 10 + '0');
+                    last /= 10;
+                }
+                reverse(str.begin(), str.end());
+                cout << str[rem - 1] << endl;
+                return;
+            }
+            else
+            {
+                string str;
+                // cout << last << ' ' << rem << '\n';
+                cout << last % 10 << endl;
+                // cout << str[0] << endl;
+                return;
+            }
+ 
+        }
+        len = e;
+        ans += d;
+    }
+  
+}
+int main()
+{
+    fastread;
+    int test = 1;
+    cin >> test;
+    while (test--)
+    {
+        testcase();
+    }
+    return 0;
+}

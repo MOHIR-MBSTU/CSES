@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main()
+{
+    set<ll>st;
+    ll n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        ll val; cin >> val;
+        st.insert(val);
+    }
+    cout << st.size() << endl;
+    return 0;
+}

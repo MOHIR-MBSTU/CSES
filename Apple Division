@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+ll ar[22];
+ll n;
+ll sum;
+ll func(ll pos, ll sum2)
+{
+    if (pos == n)return abs(sum - 2 * sum2);
+    return min(func(pos + 1, sum2 + ar[pos]), func(pos + 1, sum2));
+ 
+}
+int main()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+        sum += ar[i];
+    }
+    cout << func(0, 0) << endl;
+    return 0;
+}
